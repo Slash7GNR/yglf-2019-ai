@@ -4,6 +4,8 @@ const vid = document.getElementById('vid');
 const title = document.getElementById('title');
 const btn = document.getElementById('btn');
 let model;
+vid.width = 100;
+vid.height = 100;
 
 async function init () {
 
@@ -11,10 +13,10 @@ async function init () {
   model = await load();
 }
 
-init()
+init();
 
 function write (str) {
-  title.innerText = str
+  title.innerText = str;
 }
 
 async function run () {
@@ -22,11 +24,22 @@ async function run () {
   // Classify the image.
   const predictions = await model.detect(vid);
 
-  console.log('Predictions: ');
-  console.log(predictions);
-  if (predictions[0] && predictions[0].class) {
-    write(predictions[0].class)
+  var allPredictionClasses = [];
+  for (var i=0;i<predictions.length; i++) {
+    if (predictions[i] && predictions[i].class) {
+      allPredictionClasses.push(predictions[i].class); 
+    }
   }
+
+  if (allPredictionClasses.length > 0) {
+    write(allPredictionClasses.join(','));
+  }
+
+  // console.log('Predictions: ');
+  // console.log(predictions);
+  // if (predictions[0] && predictions[0].class) {
+  //   write(predictions[0].class)
+  // }
 
 }
 
