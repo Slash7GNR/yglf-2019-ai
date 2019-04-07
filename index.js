@@ -1,54 +1,73 @@
 import { load } from '@tensorflow-models/coco-ssd';
 
 const vid = document.getElementById('vid');
-const title = document.getElementById('title');
 const btn = document.getElementById('btn');
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+let runInterval;
 let model;
-vid.width = 100;
-vid.height = 100;
+let isRun = false;
+vid.width = 1280;
+vid.height = 720;
 
 async function init () {
-
-  // Load the model.
   model = await load();
 }
 
-init();
-
-function write (str) {
-  title.innerText = str;
-}
-
 async function run () {
-
-  // Classify the image.
   const predictions = await model.detect(vid);
-
-  var allPredictionClasses = [];
-  for (var i=0;i<predictions.length; i++) {
-    if (predictions[i] && predictions[i].class) {
-      allPredictionClasses.push(predictions[i].class); 
-    }
-  }
-
-  if (allPredictionClasses.length > 0) {
-    write(allPredictionClasses.join(','));
-  }
-
-  // console.log('Predictions: ');
-  // console.log(predictions);
-  // if (predictions[0] && predictions[0].class) {
-  //   write(predictions[0].class)
-  // }
-
+  console.log(predictions);
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  const font = '16px sans-serif';
+  ctx.font = font;
+  ctx.textBaseline = 'top';
+  predictions.map(prediction => Object.assign({}, prediction, {rectColor: calculateRectColorByScore(prediction.score)}))
+             .forEach(prediction => {
+              const x = prediction.bbox[0];
+              const y = prediction.bbox[1];
+              const width = prediction.bbox[2];
+              const height = prediction.bbox[3];
+              // Draw the bounding box.
+              ctx.strokeStyle = prediction.rectColor;
+              ctx.lineWidth = 4;
+              ctx.strokeRect(x, y, width, height);
+              // Draw the label background.
+              ctx.fillStyle = prediction.rectColor;
+              const text = `${prediction.class}-${prediction.score}`;
+              const textWidth = ctx.measureText(text).width;
+              const textHeight = parseInt(font, 10); // base 10
+              ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
+              const xText = prediction.bbox[0];
+              const yText = prediction.bbox[1];
+              // Draw the text last to ensure it's on top.
+              ctx.fillStyle = '#000000';
+              ctx.fillText(text, xText, yText);
+            });
 }
 
-let isRun = false;
+function calculateRectColorByScore(score) {
+  if (score > 0.9) {
+    return '#00ff00';
+  } else if (score > 0.7 && score <= 0.9) {
+    return '#FFFF00';
+  } else {
+    return '#ff0000';
+  }
+}
+
 function btnClick() {
-  if (isRun) return;
+  if (isRun) {
+    isRun = false
+    btn.innerText = 'Play';
+    vid.pause();
+    clearInterval(runInterval);
+    return;
+  };
+  btn.innerText = 'Pause';
   isRun = true;
-  btn.setAttribute('style', 'display: none');
   vid.play();
-  setInterval(run, 100);
+  runInterval = setInterval(run, 500);
 };
+
+init();
 btn.addEventListener('click', btnClick);
