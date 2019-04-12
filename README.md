@@ -19,20 +19,12 @@ Install dependencies:
 ```sh
 yarn
 ```
-OR
-```sh
-npm install
-```
 
 Launch a development server, and watch files for changes. This command will also automatically open
 the demo app in your browser.
 
 ```sh
 yarn watch
-```
-OR
-```sh
-npm run watch
 ```
 
 # yglf-2019-ai
