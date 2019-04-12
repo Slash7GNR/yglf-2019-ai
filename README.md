@@ -4,8 +4,7 @@ The project shows a video and recognizes the objects that are shown in the scree
 The project has been done as part of Israel YGLF conference 2019.
 
 ## See the project
-You can simply go to github pages to see the project itself
-`https://pages.github.com/`
+This site was built using [Github Pages](https://slash7gnr.github.io/yglf-2019-ai/)
 
 ## Setup
 
