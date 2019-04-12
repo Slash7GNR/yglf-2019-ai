@@ -1,19 +1,28 @@
-# Object Detection (COCO-SSD) Demo
+# Video detection with COCO-SSD
 
-This demo allows you to try out object detection on a couple of preset images using different base models.
+The project shows a video and recognizes the objects that are shown in the screen, using tensorflow and COCO-SSD model.
+The project has been done as part of Israel YGLF conference 2019.
+
+## See the project
+You can simply go to github pages to see the project itself
+`https://pages.github.com/`
 
 ## Setup
 
-`cd` into the demo/ folder:
+`git clone` the project:
 
 ```sh
-cd coco-ssd/demo
+git clone https://github.com/Slash7GNR/yglf-2019-ai.git
 ```
 
 Install dependencies:
 
 ```sh
 yarn
+```
+OR
+```sh
+npm install
 ```
 
 Launch a development server, and watch files for changes. This command will also automatically open
@@ -22,42 +31,9 @@ the demo app in your browser.
 ```sh
 yarn watch
 ```
-
-## If you are developing the model locally and want to test the changes in the demo
-
-`cd` into the coco-ssd/ folder:
-
+OR
 ```sh
-cd coco-ssd
+npm run watch
 ```
 
-Install dependencies:
-```sh
-yarn
-```
-
-Publish coco-ssd locally:
-```sh
-yarn publish-local
-```
-
-`cd` into this directory (coco-ssd/demo) and install dependencies:
-
-```sh
-cd demo
-yarn
-```
-
-Link the package published from the publish step above:
-```sh
-yarn link-local
-```
-
-Start the dev demo server:
-```sh
-yarn watch
-```
-
-To get future updates from the `coco-ssd` source code, just run `yarn publish-local` in the coco-ssd/
-folder again.
 # yglf-2019-ai
