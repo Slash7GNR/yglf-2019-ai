@@ -1,4 +1,4 @@
-# Video detection with COCO-SSD
+# Video detection with Tensorflow & COCO-SSD
 
 The project shows a video and recognizes the objects that are shown in the screen, using tensorflow and COCO-SSD model.
 The project has been done as part of Israel YGLF conference 2019.
