@@ -12,6 +12,7 @@ This site was built using [Github Pages](https://slash7gnr.github.io/yglf-2019-a
 
 ```sh
 git clone https://github.com/Slash7GNR/yglf-2019-ai.git
+cd yglf-2019-ai
 ```
 
 Install dependencies:
