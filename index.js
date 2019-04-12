@@ -16,7 +16,6 @@ async function init () {
 
 async function run () {
   const predictions = await model.detect(vid);
-  console.log(predictions);
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   const font = '16px sans-serif';
   ctx.font = font;
